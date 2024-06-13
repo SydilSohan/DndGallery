@@ -14,23 +14,36 @@ import {
   SortableContext,
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
-
+import Link from "next/link";
 import { Photo } from "./Photo";
 import { GalleryType } from "@/types/types";
 import CheckboxForm from "./ChecboxForm";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
+import { Button } from "../ui/button";
 export const UploadGallery = ({
   user,
   initialItems,
 }: {
-  user?: User;
+  user?: User | null;
   initialItems: GalleryType[];
 }) => {
   const [items, setItems] = useState(initialItems);
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
   const [loading, setLoading] = useState(false);
+  if (!user)
+    return (
+      <div>
+        <Button>
+          <Link href="/auth/login">Login</Link>
+        </Button>
+        <p>
+          you must be logged in, this app uses login functionality to store
+          gallery assets
+        </p>
+      </div>
+    );
   return (
     <DndContext
       sensors={sensors}
@@ -47,7 +60,7 @@ export const UploadGallery = ({
         {activeId ? (
           <Photo
             url={items.find((item) => item.id === activeId)?.src as string}
-            index={items.findIndex((item) => item.id === activeId)}
+            index={activeId}
           />
         ) : null}
       </DragOverlay>

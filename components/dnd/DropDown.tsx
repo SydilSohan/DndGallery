@@ -41,15 +41,14 @@ const DropDown = ({ user }: Props) => {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <Link href={"/account/settings"}>Settings</Link>
-        </DropdownMenuItem>
+
         <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={async () => {
             const { error } = await supabase.auth.signOut();
             error ? toast.error("error") : toast.success("Logged Out");
             router.refresh();
+            // router.push("/auth/login");
           }}
         >
           Logout

@@ -2,7 +2,7 @@ import React, { CSSProperties, forwardRef, RefObject } from "react";
 import Image from "next/image";
 import { Card } from "../ui/card";
 import { FormItem } from "../ui/form";
-import { HandMetalIcon } from "lucide-react";
+import { GripIcon, HandMetalIcon } from "lucide-react";
 interface PhotoProps {
   url: string;
   index: number;
@@ -30,16 +30,22 @@ export const Photo = forwardRef<HTMLDivElement, PhotoProps>(
 
     return (
       <div
-        className={`relative hover:brightness-50 transition-all duration-200 ease-in-out rounded-md shadow ${
-          index === 0
-            ? " col-span-2 row-span-2 min-h-80 sm:min-h-max  "
-            : "  h-44  sm:h-48"
+        className={`relative hover:brightness-75 transition-all duration-200 ease-linear rounded-md shadow ${
+          index === 0 ? " col-span-2 row-span-2 min-h-80   " : "  h-44  sm:h-48"
         }`}
         ref={ref}
         style={inlineStyles}
       >
+        <div className="flex flex-row w-full justify-between">
+          <GripIcon
+            strokeWidth={0.9}
+            className="cursor-grab absolute right-2 top-4   bg-white bg-opacity-75 rounded-md shadow  touch-manipulation"
+            {...props}
+          />
+        </div>
         {children}
-        <div className=" h-[90%] w-full" {...props}></div>
+
+        {/* <div className=" h-[90%] w-full"></div> */}
         {/* <Image src={url} fill objectFit="cover" alt="" /> */}
       </div>
     );

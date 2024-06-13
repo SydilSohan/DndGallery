@@ -94,7 +94,7 @@ export default function CheckboxForm({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="touch-auto">
           <FormField
             control={form.control}
             name="items"
@@ -131,7 +131,7 @@ export default function CheckboxForm({
                           <FormItem className="z-50 p-4">
                             <FormControl>
                               <Checkbox
-                                className="text-2xl bg-white size-5"
+                                className="text-2xl bg-white size-5 shadow-2xl"
                                 checked={field.value?.some(
                                   (value) => value.id === item.id
                                 )}

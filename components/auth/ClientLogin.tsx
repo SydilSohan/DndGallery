@@ -15,7 +15,7 @@ const ClientLogin = () => {
   if (loading) return <Loader />;
   if (user)
     return (
-      <Card className="m-2 w-4/5 max-w-screen-sm">
+      <Card className="m-2 w-4/5 max-w-screen-sm ">
         <CardHeader>
           <CardTitle>
             Welcome back,{" "}
@@ -30,16 +30,6 @@ const ClientLogin = () => {
 
           <p className="underline">
             <Link href={"/"}>Go to dashboard</Link>
-          </p>
-          <p
-            className="cursor-pointer underline"
-            onClick={async () => {
-              const supabase = createClient();
-              await supabase.auth.signOut();
-              router.refresh();
-            }}
-          >
-            Logout{" "}
           </p>
         </CardContent>
       </Card>

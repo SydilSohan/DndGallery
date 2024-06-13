@@ -46,6 +46,7 @@ export const metadata: Metadata = {
   },
 };
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 export default async function Index() {
   headers();
   const supabase = createClient();
@@ -53,7 +54,6 @@ export default async function Index() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) redirect("/auth/login");
   const items = data?.gallery as GalleryType[];
   let initialItems;
 
@@ -64,10 +64,12 @@ export default async function Index() {
   }
   return (
     <main className=" max-w-[100vw] border-green-500 border-1 border-solid  overflow-x-hidden p-2 sm:max-w-screen-lg mx-auto">
-      <div className="flex gap-2 flex-row items-center my-4">
-        <DropDown user={user} />
-        <p>Hi, {user.email?.split("@", +1)}</p>
-      </div>
+      {user && (
+        <div className="flex gap-2 flex-row items-center my-4">
+          <DropDown user={user} />
+          <p>Hi, {user?.email?.split("@", +1)}</p>
+        </div>
+      )}
       {/* <DnD />
       <Main /> */}
       <UploadGallery user={user} initialItems={initialItems} />
