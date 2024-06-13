@@ -98,8 +98,8 @@ export default function CheckboxForm({
                   >
                     Delete
                   </SubmitButton>
-                  <FormMessage />
                 </div>
+
                 <Grid columns={5}>
                   {items.map((item, index) => (
                     <FormField
@@ -145,6 +145,7 @@ export default function CheckboxForm({
                     setItems={setItems}
                   />
                 </Grid>
+                <FormMessage />
               </FormItem>
             )}
           />
