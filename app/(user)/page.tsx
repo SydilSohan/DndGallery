@@ -55,11 +55,19 @@ export default async function Index() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/auth/login");
   const items = data?.gallery as GalleryType[];
-  const initialItems = items.length > 0 ? items : gallery;
+  let initialItems;
+
+  if (items && items.length > 0) {
+    initialItems = items;
+  } else {
+    initialItems = gallery;
+  }
   return (
-    <main className="w-screen  sm:max-w-screen-xl mx-auto  py-12 px-2">
-      <p>Hi {user.email}</p>
-      <DropDown user={user} />
+    <main className=" max-w-[100vw] border-green-500 border-1 border-solid  overflow-x-hidden p-2 sm:max-w-screen-lg mx-auto">
+      <div className="flex gap-2 flex-row items-center my-4">
+        <DropDown user={user} />
+        <p>Hi, {user.email?.split("@", +1)}</p>
+      </div>
       {/* <DnD />
       <Main /> */}
       <UploadGallery user={user} initialItems={initialItems} />

@@ -1,4 +1,4 @@
-import React, { forwardRef, RefObject } from "react";
+import React, { CSSProperties, forwardRef, RefObject } from "react";
 import Image from "next/image";
 import { Card } from "../ui/card";
 import { FormItem } from "../ui/form";
@@ -14,7 +14,7 @@ interface PhotoProps {
 
 export const Photo = forwardRef<HTMLDivElement, PhotoProps>(
   ({ url, index, faded, style, children, isDragging, ...props }, ref) => {
-    const inlineStyles = {
+    const inlineStyles: CSSProperties = {
       opacity: faded ? "0.2" : "1",
       transformOrigin: "0 0",
       //   height: index === 0 ? 480 : 240,
@@ -24,27 +24,23 @@ export const Photo = forwardRef<HTMLDivElement, PhotoProps>(
       backgroundSize: "cover",
       backgroundPosition: "center",
       backgroundColor: "grey",
+      backgroundRepeat: "no-repeat",
       ...style,
     };
 
     return (
       <div
-        className={`relative hover:brightness-50 transition-all duration-200 ease-in-out  aspect-square rounded-md shadow border-1 border-solid border-gray-400 ${
-          isDragging ? "opacity-50 cursor-grabbing" : "cursor-grab"
-        }${index === 0 ? " col-span-2 row-span-2" : ""}`}
+        className={`relative hover:brightness-50 transition-all duration-200 ease-in-out rounded-md shadow ${
+          index === 0
+            ? " col-span-2 row-span-2 min-h-80 sm:min-h-max  "
+            : "  h-44  sm:h-48"
+        }`}
         ref={ref}
         style={inlineStyles}
       >
         {children}
-        <div className=" h-[90%] w-full" {...props}>
-          {/* <Image
-            src={url}
-            fill
-            objectFit="cover"
-            alt=""
-            className="z-0 absolute"
-          /> */}
-        </div>
+        <div className=" h-[90%] w-full" {...props}></div>
+        {/* <Image src={url} fill objectFit="cover" alt="" /> */}
       </div>
     );
   }

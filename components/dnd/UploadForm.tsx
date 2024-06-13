@@ -142,7 +142,7 @@ const UploadForm = ({ setItems, items, user }: UploadFormProps) => {
   };
 
   return (
-    <div className="shadow-md rounded-md aspect-square flex justify-center items-center relative">
+    <div className="shadow-md rounded-md aspect-square flex justify-center items-center relative h-40 w-full">
       <Input
         style={{
           width: "100%",

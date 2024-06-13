@@ -89,7 +89,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         style={{ scrollBehavior: "smooth" }}
-        className={montserrat.className + "!overflow-x-hidden  mx-auto"}
+        className={montserrat.className + "  mx-auto"}
       >
         {children}
         <Toaster richColors />

@@ -104,7 +104,8 @@ export default function CheckboxForm({
                   <div className="flex gap-2">
                     <CheckSquare2 className="text-blue-700" />{" "}
                     <p>
-                      {field.value ? field.value.length : "0"} files selected
+                      {field.value ? `${field.value.length} files` : "0 file"}{" "}
+                      selected
                     </p>
                   </div>
                   <SubmitButton

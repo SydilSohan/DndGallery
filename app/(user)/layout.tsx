@@ -10,7 +10,7 @@ export default function UserLayout({
     <div className=" ">
       {/* <Header /> */}
       {children}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
