@@ -38,6 +38,9 @@ export default function CheckboxForm({
   const { user } = useGetUser();
 
   async function onSubmit(data: DeleteFormType) {
+    form.reset();
+    form.clearErrors();
+    form.resetField("items");
     if (!user) return;
     const supabase = createClient();
     console.log(data, "data");
@@ -66,8 +69,6 @@ export default function CheckboxForm({
       setItems(items);
       return;
     }
-
-    form.reset();
   }
 
   return (
@@ -97,6 +98,7 @@ export default function CheckboxForm({
                   >
                     Delete
                   </SubmitButton>
+                  <FormMessage />
                 </div>
                 <Grid columns={5}>
                   {items.map((item, index) => (
@@ -143,8 +145,6 @@ export default function CheckboxForm({
                     setItems={setItems}
                   />
                 </Grid>
-
-                <FormMessage />
               </FormItem>
             )}
           />
