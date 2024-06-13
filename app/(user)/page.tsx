@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import DropDown from "@/components/dnd/DropDown";
 import { gallery } from "@/components/dnd/initial-data";
+//metadata for seo
 export const metadata: Metadata = {
   title: config.appName,
   description: config.metaDescription,
@@ -45,21 +46,25 @@ export const metadata: Metadata = {
     canonical: process.env.NEXT_PUBLIC_SITE_URL!,
   },
 };
+//make the route dynamic
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 export default async function Index() {
   headers();
   const supabase = createClient();
-  const { data, error } = await supabase.from("gallery").select("*").single();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+  //row level security policy will automatically fetch the users row based on their user id without any needing any filter
+  const { data, error } = await supabase.from("gallery").select("*").single();
+
   const items = data?.gallery as GalleryType[];
   let initialItems;
-
   if (items && items.length > 0) {
     initialItems = items;
   } else {
+    //if database items are empty, placeholder items will be fetched instead
+
     initialItems = gallery;
   }
   return (
@@ -70,8 +75,7 @@ export default async function Index() {
           <p>Hi, {user?.email?.split("@", +1)}</p>
         </div>
       )}
-      {/* <DnD />
-      <Main /> */}
+      {/* main area below */}
       <UploadGallery user={user} initialItems={initialItems} />
     </main>
   );

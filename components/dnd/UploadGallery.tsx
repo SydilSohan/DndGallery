@@ -32,6 +32,7 @@ export const UploadGallery = ({
   const [activeId, setActiveId] = useState(null);
   const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
   const [loading, setLoading] = useState(false);
+
   if (!user)
     return (
       <div>
@@ -44,6 +45,7 @@ export const UploadGallery = ({
         </p>
       </div>
     );
+  // necessary functions and boilerplate wrappers from dnd-kit
   return (
     <DndContext
       sensors={sensors}
@@ -52,8 +54,12 @@ export const UploadGallery = ({
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      <SortableContext items={items} strategy={rectSortingStrategy}>
-        <CheckboxForm items={items} setItems={setItems} />
+      <SortableContext disabled items={items} strategy={rectSortingStrategy}>
+        <CheckboxForm
+          setLoading={setLoading}
+          items={items}
+          setItems={setItems}
+        />
       </SortableContext>
 
       <DragOverlay adjustScale={true}>
@@ -71,6 +77,7 @@ export const UploadGallery = ({
     console.log(event);
     setActiveId(event.active.id);
   }
+  // function to update the state after drag ends and then update in database,
   function handleDragEnd(event: any) {
     console.log(event);
     const supabase = createClient();
@@ -89,10 +96,8 @@ export const UploadGallery = ({
         (async () => {
           const { data, error } = await supabase
             .from("gallery")
-            .upsert(
-              { gallery: newItems, user_id: user?.id },
-              { onConflict: "user_id" }
-            );
+            .update({ gallery: newItems, user_id: user?.id })
+            .eq("user_id", user?.id!);
           console.log(error);
         })();
 

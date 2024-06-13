@@ -27,37 +27,17 @@ import { CheckboxIcon } from "@radix-ui/react-icons";
 export default function CheckboxForm({
   items,
   setItems,
+  setLoading,
 }: {
   items: GalleryType[];
   setItems: React.Dispatch<React.SetStateAction<GalleryType[]>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const form = useForm<DeleteFormType>({
     resolver: zodResolver(deleteFormSchema),
   });
   const { user, loading } = useGetUser();
-  // async function onSubmit(data: DeleteFormType) {
-  //   if (!user) return;
-  //   const supabase = createClient();
-  //   console.log(data, "data");
-  //   ///delete the selected items from items
-  //   setItems((prevItems) =>
-  //     prevItems.filter((item) =>
-  //       data.items.every((value) => value.id !== item.id)
-  //     )
-  //   );
-  //   const { data: deletedData, error } = await supabase
-  //     .from("gallery")
-  //     .update({
-  //       gallery: items,
-  //     })
-  //     .eq("user_id", user.id);
-  //   console.log(deletedData, "deletedData");
-  //   if (error) {
-  //     console.log(error, "error");
-  //     return;
-  //   }
-  //   form.reset();
-  // }
+
   async function onSubmit(data: DeleteFormType) {
     if (!user) return;
     const supabase = createClient();
