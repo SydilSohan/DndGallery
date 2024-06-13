@@ -54,7 +54,7 @@ export const UploadGallery = ({
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      <SortableContext disabled items={items} strategy={rectSortingStrategy}>
+      <SortableContext items={items} strategy={rectSortingStrategy}>
         <CheckboxForm
           setLoading={setLoading}
           items={items}
