@@ -9,7 +9,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { GalleryType } from "@/types/types";
@@ -17,26 +16,26 @@ import { DeleteFormType, deleteFormSchema } from "@/types/schemas";
 import { SortablePhoto } from "./SortablePhoto";
 import { Grid } from "./Grid";
 import UploadForm from "./UploadForm";
-import { useEffect } from "react";
 import SubmitButton from "../global/SubmitButton";
 import useGetUser from "@/hooks/useGetUser";
 import { createClient } from "@/utils/supabase/client";
-import { CheckIcon, CheckSquare2 } from "lucide-react";
-import { CheckboxIcon } from "@radix-ui/react-icons";
+import { CheckSquare2 } from "lucide-react";
 
 export default function CheckboxForm({
   items,
   setItems,
   setLoading,
+  loading,
 }: {
   items: GalleryType[];
   setItems: React.Dispatch<React.SetStateAction<GalleryType[]>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  loading: boolean;
 }) {
   const form = useForm<DeleteFormType>({
     resolver: zodResolver(deleteFormSchema),
   });
-  const { user, loading } = useGetUser();
+  const { user } = useGetUser();
 
   async function onSubmit(data: DeleteFormType) {
     if (!user) return;
@@ -74,7 +73,10 @@ export default function CheckboxForm({
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="touch-auto">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className={`touch-auto ${loading ? "opacity-50 cursor-wait" : ""}`}
+        >
           <FormField
             control={form.control}
             name="items"
@@ -134,7 +136,12 @@ export default function CheckboxForm({
                       )}
                     />
                   ))}
-                  <UploadForm user={user} items={items} setItems={setItems} />
+                  <UploadForm
+                    setLoading={setLoading}
+                    user={user}
+                    items={items}
+                    setItems={setItems}
+                  />
                 </Grid>
 
                 <FormMessage />

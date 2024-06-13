@@ -13,11 +13,12 @@ export type UploadFormProps = {
   items: GalleryType[];
   setItems: React.Dispatch<React.SetStateAction<GalleryType[]>>;
   user?: User;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type FormDataUpload = {
   file: FileList;
 };
-const UploadForm = ({ setItems, items, user }: UploadFormProps) => {
+const UploadForm = ({ setItems, items, user, setLoading }: UploadFormProps) => {
   const supabase = createClient();
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,62 +28,67 @@ const UploadForm = ({ setItems, items, user }: UploadFormProps) => {
     if (sizeInMB > 5) {
       return toast.warning("file too big, upload 4mb or less in size");
     }
-    // Optimistic update
-    // Update the state immediately with the new items
-    // This will re-render the component and give the user instant feedback
-    const newItems = [
-      ...items,
-      {
-        id: `${file.name}-${Math.random()}`,
-        src: URL.createObjectURL(file),
-        title: file.name,
-      },
-    ];
-    setItems(newItems);
+    try {
+      setLoading(true);
+      // Optimistic update
+      // Update the state immediately with the new items
+      // This will re-render the component and give the user instant feedback
+      const newItems = [
+        ...items,
+        {
+          id: `${file.name}-${Math.random()}`,
+          src: URL.createObjectURL(file),
+          title: file.name,
+        },
+      ];
+      // setItems(newItems);
 
-    // Send the updated data to the server in the background
-    const { data, error } = await supabase.storage
-      .from("galleries")
-      .upload(`${user?.id}/${file.name}`, file);
+      // Send the updated data to the server in the background
+      const { data, error } = await supabase.storage
+        .from("galleries")
+        .upload(`${user?.id}/${file.name}-${Math.random()}`, file);
 
-    // If the server update fails, rollback the optimistic update
-    if (error) {
+      // If the server update fails, rollback the optimistic update
+      if (error) {
+        // setItems(items);
+        // remove cache
+        await revalidateClient();
+        throw new Error(error.message);
+      }
+      const { data: updatedData, error: upErr } = await supabase
+        .from("gallery")
+        .update({
+          user_id: user.id,
+          gallery: [
+            ...items,
+            {
+              id: `${file.name}-${Math.random()}`,
+              src: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_URL! + data?.path,
+              title: file.name,
+            },
+          ],
+        })
+        .eq("user_id", user.id)
+        .select();
+
+      // If the server update fails, rollback the optimistic update
+      if (upErr) {
+        setItems(items);
+        await revalidateClient();
+        throw new Error(upErr.message);
+      }
+      setItems(updatedData[0].gallery as GalleryType[]);
+    } catch (error: any) {
       toast.error("Upload error", {
-        description: error.message,
+        description: error,
       });
-      setItems(items);
-      // remove cache
-      await revalidateClient();
-      return;
-    }
-
-    const { error: upErr } = await supabase
-      .from("gallery")
-      .update({
-        user_id: user.id,
-        gallery: [
-          ...items,
-          {
-            id: `${file.name}-${Math.random()}`,
-            src: process.env.NEXT_PUBLIC_SUPABASE_BUCKET_URL! + data?.path,
-            title: file.name,
-          },
-        ],
-      })
-      .eq("user_id", user.id);
-
-    // If the server update fails, rollback the optimistic update
-    if (upErr) {
-      toast.error("Update error", {
-        description: upErr.message,
-      });
-      setItems(items);
-      await revalidateClient();
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="shadow-md rounded-md aspect-square flex justify-center items-center relative h-40 w-full">
+    <div className="shadow-md rounded-md aspect-square flex justify-center items-center relative  w-full">
       <Input
         style={{
           width: "100%",

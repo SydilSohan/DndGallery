@@ -31,7 +31,9 @@ export const Photo = forwardRef<HTMLDivElement, PhotoProps>(
     return (
       <div
         className={`relative hover:brightness-75 transition-all duration-200 ease-linear rounded-md shadow ${
-          index === 0 ? " col-span-2 row-span-2 min-h-80   " : "  h-44  sm:h-48"
+          index === 0
+            ? " col-span-2 row-span-2 h-80 sm:h-[393px]   "
+            : "  h-44  sm:h-48"
         }`}
         ref={ref}
         style={inlineStyles}

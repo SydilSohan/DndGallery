@@ -1,3 +1,6 @@
+## Links
+1. Vercel - https://dnd-gallery-wheat.vercel.app/
+2. Github - https://github.com/SydilSohan/DndGallery
 ## Login Access
 1. Test Account
   - Email: mdsohan383@gmail.com

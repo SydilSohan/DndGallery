@@ -54,8 +54,13 @@ export const UploadGallery = ({
       onDragEnd={handleDragEnd}
       onDragCancel={handleDragCancel}
     >
-      <SortableContext items={items} strategy={rectSortingStrategy}>
+      <SortableContext
+        disabled={loading}
+        items={items}
+        strategy={rectSortingStrategy}
+      >
         <CheckboxForm
+          loading={loading}
           setLoading={setLoading}
           items={items}
           setItems={setItems}
@@ -66,7 +71,7 @@ export const UploadGallery = ({
         {activeId ? (
           <Photo
             url={items.find((item) => item.id === activeId)?.src as string}
-            index={activeId}
+            index={items.findIndex((item) => item.id === activeId)}
           />
         ) : null}
       </DragOverlay>
