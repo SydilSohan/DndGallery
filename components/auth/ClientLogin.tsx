@@ -29,7 +29,9 @@ const ClientLogin = () => {
           <p>You are signed in.</p>
 
           <p className="underline">
-            <Link href={"/"}>Go to dashboard</Link>
+            <Link href={"/"} prefetch={false}>
+              Go to dashboard
+            </Link>
           </p>
         </CardContent>
       </Card>

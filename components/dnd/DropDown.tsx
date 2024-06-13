@@ -9,13 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CircleUser } from "lucide-react";
-import React from "react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { revalidateClient } from "@/app/(user)/actions";
 type Props = {
   user: User | null;
 };
@@ -47,6 +46,7 @@ const DropDown = ({ user }: Props) => {
           onClick={async () => {
             const { error } = await supabase.auth.signOut();
             error ? toast.error("error") : toast.success("Logged Out");
+            revalidateClient();
             router.refresh();
             // router.push("/auth/login");
           }}
