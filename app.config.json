@@ -1,54 +1,54 @@
 {
-    "appName": "Your App Name",
-    "tagline": "Your App Tagline",
+    "appName": "Gallery App",
+    "tagline": "gallery App Tagline",
     "keywords": ["keyword1", "keyword2", "keyword3"],
-    "brandLogo": "path/to/your/logo.png",
-    "metaDescription": "Your App Meta Description",
+    "brandLogo": "path/to/gallery/logo.png",
+    "metaDescription": "gallery App Meta Description",
     "author": "Author Name",
-    "contactEmail": "contact@yourapp.com",
+    "contactEmail": "contact@galleryapp.com",
     "socialMedia": {
-        "facebook": "https://www.facebook.com/yourapp",
-        "twitter": "https://twitter.com/yourapp",
-        "instagram": "https://www.instagram.com/yourapp",
-        "linkedin": "https://www.linkedin.com/company/yourapp"
+        "facebook": "https://www.facebook.com/galleryapp",
+        "twitter": "https://twitter.com/galleryapp",
+        "instagram": "https://www.instagram.com/galleryapp",
+        "linkedin": "https://www.linkedin.com/company/galleryapp"
     },
     "analytics": {
-        "googleAnalyticsID": "Your Google Analytics ID",
-        "facebookPixelID": "Your Facebook Pixel ID"
+        "googleAnalyticsID": "gallery Google Analytics ID",
+        "facebookPixelID": "gallery Facebook Pixel ID"
     },
     "themeColor": "#000000",
     "backgroundColor": "#ffffff",
     "serverPort": 3000,
     "database": {
-        "url": "Your Database URL",
-        "name": "Your Database Name"
+        "url": "gallery Database URL",
+        "name": "gallery Database Name"
     },
     "seo": {
-        "titleTemplate": "%s - Your App Name",
-        "defaultTitle": "Your App Name",
-        "description": "Your App Description",
-        "canonical": "https://www.yourapp.com",
+        "titleTemplate": "%s - Gallery App",
+        "defaultTitle": "Gallery App",
+        "description": "gallery App Description",
+        "canonical": "https://www.galleryapp.com",
         "openGraph": {
-            "url": "https://www.yourapp.com",
-            "title": "Your App Name",
-            "description": "Your App Description",
+            "url": "https://www.galleryapp.com",
+            "title": "Gallery App",
+            "description": "gallery App Description",
             "images": [
                 {
-                    "url": "https://www.yourapp.com/static/images/og-image.jpg",
+                    "url": "https://www.galleryapp.com/static/images/og-image.jpg",
                     "width": 800,
                     "height": 600,
-                    "alt": "Your App Name"
+                    "alt": "Gallery App"
                 }
             ],
-            "site_name": "Your App Name"
+            "site_name": "Gallery App"
         },
         "twitter": {
-            "handle": "@yourapp",
+            "handle": "@galleryapp",
             "cardType": "summary_large_image"
         }
     },
     "content" : {
-        "tagline" :"Your App Tagline",
+        "tagline" :"gallery App Tagline",
         "features": [
             {
                 "title": "Feature 1",

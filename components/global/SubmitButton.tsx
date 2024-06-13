@@ -11,7 +11,7 @@ const SubmitButton = ({ isLoading, children, ...buttonProps }: Props) => {
   return (
     <Button disabled={isLoading} type="submit" {...buttonProps}>
       {' '}
-      {isLoading && <Loader2 className="size-4 animate-spin mr-2" />} {children}
+      {isLoading ? <Loader2 className="mr-2 size-4 animate-spin" /> : children}
     </Button>
   );
 };

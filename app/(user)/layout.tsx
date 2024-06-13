@@ -1,5 +1,5 @@
-import Header from './_components/Header';
-import Footer from './_components/Footer';
+import Header from "./_components/Header";
+import Footer from "./_components/Footer";
 
 export default function UserLayout({
   children,
@@ -8,7 +8,7 @@ export default function UserLayout({
 }>) {
   return (
     <div className=" ">
-      <Header />
+      {/* <Header /> */}
       {children}
       <Footer />
     </div>

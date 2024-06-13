@@ -4,7 +4,7 @@ import useGetUser from "@/hooks/useGetUser";
 import AuthTabs from "./AuthTab";
 import Loader from "../global/Loader";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Link } from "next-view-transitions";
+import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +29,7 @@ const ClientLogin = () => {
           <p>You are signed in.</p>
 
           <p className="underline">
-            <Link href={"/account"}>Go to dashboard</Link>
+            <Link href={"/"}>Go to dashboard</Link>
           </p>
           <p
             className="cursor-pointer underline"

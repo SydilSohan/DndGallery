@@ -34,48 +34,26 @@ export type Database = {
   }
   public: {
     Tables: {
-      answers: {
+      gallery: {
         Row: {
-          answer: Json
           created_at: string
+          gallery: Json[] | null
           id: number
-          quiz: number
+          user_id: string | null
         }
         Insert: {
-          answer: Json
           created_at?: string
+          gallery?: Json[] | null
           id?: number
-          quiz: number
+          user_id?: string | null
         }
         Update: {
-          answer?: Json
           created_at?: string
+          gallery?: Json[] | null
           id?: number
-          quiz?: number
+          user_id?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "public_answers_quiz_fkey"
-            columns: ["quiz"]
-            isOneToOne: false
-            referencedRelation: "exam"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_answers_quiz_fkey"
-            columns: ["quiz"]
-            isOneToOne: false
-            referencedRelation: "quizzes"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "public_answers_quiz_fkey"
-            columns: ["quiz"]
-            isOneToOne: false
-            referencedRelation: "userquiz"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {

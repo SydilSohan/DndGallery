@@ -25,70 +25,22 @@ export const SignUpSchema = z
     path: ["acceptance"],
   });
 
-const Question = z.object({
-  id: z.coerce.number(),
-  name: z.string().min(1, {
-    message: "Name is required.",
-  }),
-  type: z.union([
-    z.literal("mcq"),
-    z.literal("fill"),
-    z.literal("truefalse"),
-    z.literal("sampling"),
-  ]),
-  answer: z.string().min(1, {
-    message: "Answer is required.",
-  }),
-  options: z.array(z.string()).optional(),
-  image: z.any().optional(),
-});
-const answer = z.object({
-  id: z.coerce.number(),
-  answer: z.string().min(1, {
-    message: "Answer is required.",
-  }),
-});
-const questionColumn = z.object({
-  id: z.coerce.number(),
-  name: z.string().min(1, {
-    message: "Name is required.",
-  }),
-  type: z.union([
-    z.literal("mcq"),
-    z.literal("fill"),
-    z.literal("truefalse"),
-    z.literal("sampling"),
-  ]),
-
-  options: z.array(z.string()).optional(),
-  image: z.any().optional(),
-});
-const answersColumn = z.object({
-  id: z.coerce.number(),
-  answer: z.string().min(1, {
-    message: "Answer is required.",
-  }),
-});
 // .refine((data) => data.type !== "fill" && (data.options?.length ?? 0 > 1), {
 //   message: "You must provide at least 2 options",
 //   path: ["options"],
 // });
 
-export const QuizValuesSchema = z.object({
-  name: z.string().min(1, {
-    message: "Name is required.",
-  }),
-  questions: z.array(Question),
-  instructions: z.string().min(1, {
-    message: "Instructions are required.",
-  }),
-  time: z.number().optional(),
-  logo: z.any().optional(),
-  image: z.any().optional(),
-  inst: z.string().optional(),
+export const imageUploadSchema = z.object({
+  file: z.any(),
 });
-export type QuestionType = z.infer<typeof Question>;
-export type AnswerType = z.infer<typeof answer>;
-export type QuizValues = z.infer<typeof QuizValuesSchema>;
-export type QuestionColumnType = z.infer<typeof questionColumn>;
-export type AnswerColumnType = z.infer<typeof answersColumn>;
+export const deleteFormSchema = z.object({
+  items: z.array(
+    z.object({
+      title: z.string().optional(),
+      src: z.string(),
+      id: z.string(),
+    })
+  ),
+});
+export type ImageUploadForm = z.infer<typeof imageUploadSchema>;
+export type DeleteFormType = z.infer<typeof deleteFormSchema>;

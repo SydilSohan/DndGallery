@@ -1,49 +1,8 @@
 import { Enums } from './supabase';
 
-export type FormValues = {
-  name: string;
-  short: string;
-  long: string;
-  start: {
-    lat: number;
-    lng: number;
-    address: string;
-  };
-  end: {
-    lat: number;
-    lng: number;
-    address: string;
-  };
-  stops: Array<{
-    lat: number;
-    lng: number;
-    address: string;
-  }>;
-};
-
-export type BarsData = {
-  name: string;
-  exam_prep: string;
-  short: string;
-  long: string;
-  beer_type: string[];
-  address: {
-    lat: number;
-    lng: number;
-    address: string;
-  };
-  image: string;
-};
-
 export type Params = {
   params: { [key: string]: string };
   searchParams: { [key: string]: string | string[] | undefined };
-};
-export type Results = {
-  questionId: number;
-  answer: string;
-  isCorrect: boolean;
-  name: string;
 };
 
 export type SupabaseUser = {
@@ -73,3 +32,8 @@ export type SupabaseUser = {
   providers: string[] | null;
   userName: string | null;
 };
+export type GalleryType = {
+  id : string,
+  src : string,
+  title? : string
+}

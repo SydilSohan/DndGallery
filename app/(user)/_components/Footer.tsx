@@ -1,52 +1,38 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const footerNavs = [
     {
-      href: '/',
-      name: 'About',
+      href: "/",
+      name: "About",
     },
     {
-      href: '/',
-      name: 'Blog',
+      href: "/",
+      name: "Blog",
     },
     {
-      href: '/',
-      name: '',
+      href: "/",
+      name: "",
     },
     {
-      href: '/',
-      name: 'Team',
+      href: "/",
+      name: "Team",
     },
     {
-      href: '/',
-      name: 'Careers',
+      href: "/",
+      name: "Careers",
     },
 
     {
-      href: '/terms-and-conditions',
-      name: 'Terms and Conditions',
+      href: "/terms-and-conditions",
+      name: "Terms and Conditions",
     },
   ];
 
   return (
     <footer className="px-4 py-12 lg:px-0 lg:py-14  w-full  bg-gray-50 border-y-[1px] border-gray-200 ">
       <div className="max-w-screen-xl flex flex-col  gap-4 justify-between  mx-auto">
-        <div className="max-w-lg sm:mx-auto sm:text-center">
-          <Image
-            alt="bier diplom logo"
-            height={50}
-            width={200}
-            src="https://kxclciyfvlffosmwwgyn.supabase.co/storage/v1/object/public/images/assets/logo_bierdiplom.png"
-            className="w-32 sm:mx-auto"
-          />
-          <p className="leading-relaxed mt-2 text-[15px]">
-            Lorem Ipsum has been the industry&apos;s standard dummy text ever
-            since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book.
-          </p>
-        </div>
         <ul className="items-center justify-center mt-8 space-y-5 sm:flex sm:space-x-4 sm:space-y-0">
           {footerNavs.map((item, idx) => (
             <li key={idx} className=" hover:text-gray-800">

@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
-import { ViewTransitions } from "next-view-transitions";
 import { Montserrat } from "next/font/google";
 const montserrat = Montserrat({
   weight: ["400", "500", "700"],
@@ -87,18 +86,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ViewTransitions>
-      <html lang="en">
-        <body
-          style={{ scrollBehavior: "smooth" }}
-          className={
-            montserrat.className + "!overflow-x-hidden max-w-[100vw] mx-auto"
-          }
-        >
-          {children}
-          <Toaster richColors />
-        </body>
-      </html>
-    </ViewTransitions>
+    <html lang="en">
+      <body
+        style={{ scrollBehavior: "smooth" }}
+        className={montserrat.className + "!overflow-x-hidden  mx-auto"}
+      >
+        {children}
+        <Toaster richColors />
+      </body>
+    </html>
   );
 }
